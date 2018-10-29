@@ -4,7 +4,7 @@ Web server exploring different payment platforms and their security methodology
 
 ## Setup
 
-For full setup follow the `docs/launch_aws_server.md` guide for full setup.
+For full setup follow the `docs/launch_aws_server.md` guide.
 
 ## Overview
 
