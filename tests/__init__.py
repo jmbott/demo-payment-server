@@ -1,1 +1,1 @@
-"""Tests for Demo Payment Server"""
+"""Tests for Demo Payment Server."""

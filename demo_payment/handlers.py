@@ -1,1 +1,1 @@
-"""Handlers for URL Endpoints"""
+"""Handlers for URL Endpoints."""

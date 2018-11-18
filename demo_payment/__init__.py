@@ -1,1 +1,1 @@
-"""Demo Payment Server Init"""
+"""Demo Payment Server Init."""

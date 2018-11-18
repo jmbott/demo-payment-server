@@ -1,1 +1,1 @@
-"""Application Errors"""
+"""Application Errors."""

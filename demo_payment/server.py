@@ -1,4 +1,5 @@
-""" Demo Payment Web Server """
+"""Demo Payment Web Server."""
+
 from flask import Flask, session, redirect, url_for
 from flask import escape, request, render_template
 import os
@@ -13,6 +14,7 @@ app.secret_key = os.urandom(16)  # b'_5#y2L"F4Q8z\n\xec]/'
 users = ['millerbott@gmail.com', 'jmb2341@columbia.edu']
 
 
+"""Root Index."""
 @app.route("/")
 def index(name=None):
     if 'email' in session:
@@ -20,6 +22,7 @@ def index(name=None):
     return render_template('index.html', name=name)
 
 
+"""Login Route."""
 @app.route('/login', methods=['GET', 'POST'])
 def login(message=None):
     if request.method == 'POST':
@@ -34,6 +37,7 @@ def login(message=None):
     return render_template('login.html', message=None)
 
 
+"""Logout Route."""
 @app.route('/logout')
 def logout():
     print("Logging Out")
@@ -42,6 +46,7 @@ def logout():
     return redirect(url_for('index'))
 
 
+"""Error 404."""
 @app.errorhandler(404)
 def not_found(error):
 
