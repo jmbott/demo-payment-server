@@ -16,7 +16,7 @@ before_install:
 before_script:
   - python3 -m flake8 --ignore E302 .
   - python3 -m pydocstyle .
-  - psql -c 'create database demo-payment;' -U postgres
+  - psql -c 'create database demo_payment;' -U postgres
 
 notifications:
   email:

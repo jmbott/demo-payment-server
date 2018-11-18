@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  minigrid:
+  demo_payment:
     image: jmbott/demo-payment-server:0.0.1
     command: ./demo_payment/run.sh --db_host=db --demo-payment-website-url=https://www.example.com
     depends_on:
@@ -8,7 +8,7 @@ services:
   db:
     image: postgres:10.6
     environment:
-      POSTGRES_DB: demo-payment
+      POSTGRES_DB: demo_payment
   nginx:
     image: nginx:latest
     ports:
