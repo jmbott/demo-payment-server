@@ -4,16 +4,11 @@ dist: xenial
 python: "3.7"
 cache: pip
 
+services:
+  - postgresql
+
 addons:
   firefox: "63.0"
-  postgresql: "10"
-  apt:
-    packages:
-    - postgresql-10
-    - postgresql-client-10
-env:
-  global:
-  - PGPORT=5433
 
 before_install:
   - pip install -r requirements.txt
