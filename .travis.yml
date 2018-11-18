@@ -1,0 +1,29 @@
+language: python
+python:
+  - "3.7.1"
+cache: pip
+services:
+  - postgresql
+
+addons:
+  firefox: "63.0"
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+env:
+  global:
+  - PGPORT=5433
+
+before_install:
+  - pip install -r dev/requirements.txt
+
+before_script:
+  - python3 -m flake8 .
+  - python3 -m pydocstyle .
+  - psql -c 'create database demo-payment;' -U postgres
+
+notifications:
+  email:
+    on_failure: change
