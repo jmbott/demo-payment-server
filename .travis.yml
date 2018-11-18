@@ -3,8 +3,6 @@ sudo: required
 dist: xenial
 python: "3.7"
 cache: pip
-services:
-  - postgresql
 
 addons:
   firefox: "63.0"
