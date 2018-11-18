@@ -1,5 +1,4 @@
 """ Demo Payment Web Server """
-import logging
 from flask import Flask, session, redirect, url_for
 from flask import escape, request, render_template
 import os
