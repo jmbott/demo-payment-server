@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+{% block content %}
+  {% if name is not none %}
+  <p>
+    <strong>Welcome {{ name }}!</strong>
+    <a href="/logout">
+      <button type="button" onclick="return confirm('Log Out?')" class="logout">
+      logout
+      </button>
+    </a>
+  </p>
+  <p>Logged in content (not hidden in source)</p>
+  {% else %}
+  <p class="link">You're not logged in, log in <a href="/login">here</a></p>
+  {% endif %}
+  <p>
+    This website is meant to explore different website components like Flask,
+    uWSGI, Docker, certs, login services, PostgreSQL, and the hosing provider
+    AWS EC2.
+  </p>
+  <p>
+    This website also explores payment interfaces like Stripe, M-Pesa, and
+    Bitpay. How are these services secured and what are the available tests?
+  </p>
+{% endblock %}
