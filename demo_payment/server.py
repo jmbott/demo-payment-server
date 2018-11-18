@@ -12,17 +12,17 @@ app.secret_key = os.urandom(16)  # b'_5#y2L"F4Q8z\n\xec]/'
 users = ['millerbott@gmail.com', 'jmb2341@columbia.edu']
 
 
-"""Route Index."""
 @app.route("/")
 def index(name=None):
+    """Route Index."""
     if 'email' in session:
         return render_template('index.html', name=escape(session['email']))
     return render_template('index.html', name=name)
 
 
-"""Login Route."""
 @app.route('/login', methods=['GET', 'POST'])
 def login(message=None):
+    """Login Route."""
     if request.method == 'POST':
         session['email'] = request.form['email']
         if session['email'] in users:
@@ -35,20 +35,18 @@ def login(message=None):
     return render_template('login.html', message=None)
 
 
-"""Logout Route."""
 @app.route('/logout')
 def logout():
-
+    """Logout Route."""
     print("Logging Out")
     # remove the email from the session if it's there
     session.pop('email', None)
     return redirect(url_for('index'))
 
 
-"""Error 404."""
 @app.errorhandler(404)
 def not_found(error):
-
+    """Error 404."""
     return render_template('error.html'), 404
 
 
