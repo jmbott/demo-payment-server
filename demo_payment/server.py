@@ -2,11 +2,17 @@
 import logging
 from flask import Flask, session, redirect, url_for
 from flask import escape, request, render_template
+import os
 
 app = Flask(__name__)
 
+
 # Set the secret key to some random bytes. Keep this really secret!
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = os.urandom(16)  # b'_5#y2L"F4Q8z\n\xec]/'
+
+
+users = ['millerbott@gmail.com', 'jmb2341@columbia.edu']
+
 
 @app.route("/")
 def index(name=None):
@@ -14,12 +20,20 @@ def index(name=None):
         return render_template('index.html', name=escape(session['email']))
     return render_template('index.html', name=name)
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login(message=None):
     if request.method == 'POST':
         session['email'] = request.form['email']
-        return redirect(url_for('index'))
+        if session['email'] in users:
+            app.logger.info('%s logged in successfully', session['email'])
+            return redirect(url_for('index'))
+        else:
+            app.logger.info('%s failed to log in', session['email'])
+            return render_template('login.html',
+                                   message='Email Not Registered')
     return render_template('login.html', message=None)
+
 
 @app.route('/logout')
 def logout():
@@ -28,8 +42,10 @@ def logout():
     session.pop('email', None)
     return redirect(url_for('index'))
 
+
 @app.errorhandler(404)
 def not_found(error):
+
     return render_template('error.html'), 404
 
 
