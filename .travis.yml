@@ -18,7 +18,7 @@ env:
   - PGPORT=5433
 
 before_install:
-  - pip install -r dev/requirements.txt
+  - pip install -r requirements.txt
 
 before_script:
   - python3 -m flake8 .
