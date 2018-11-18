@@ -6,15 +6,13 @@ import os
 
 app = Flask(__name__)
 
-
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = os.urandom(16)  # b'_5#y2L"F4Q8z\n\xec]/'
-
 
 users = ['millerbott@gmail.com', 'jmb2341@columbia.edu']
 
 
-"""Root Index."""
+"""Route Index."""
 @app.route("/")
 def index(name=None):
     if 'email' in session:
@@ -40,6 +38,7 @@ def login(message=None):
 """Logout Route."""
 @app.route('/logout')
 def logout():
+
     print("Logging Out")
     # remove the email from the session if it's there
     session.pop('email', None)

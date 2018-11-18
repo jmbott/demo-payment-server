@@ -21,7 +21,7 @@ before_install:
   - pip install -r requirements.txt
 
 before_script:
-  - python3 -m flake8 .
+  - python3 -m flake8 --ignore E302 .
   - python3 -m pydocstyle .
   - psql -c 'create database demo-payment;' -U postgres
 
