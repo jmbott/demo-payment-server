@@ -7,8 +7,9 @@ def test_alive():
     response = requests.get("http://127.0.0.1:8080/")
     assert response.status_code == 200
 
+
 # Index test title
 def test_html_title():
-    response = requests.get("http://127.0.0.1:8080/")
+    response = requests.get("http://127.0.0.1:8088/")
     soup = BeautifulSoup(response.content, "html.parser")
     assert soup.title.text == "Home"
