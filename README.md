@@ -2,6 +2,8 @@
 
 Web server exploring different payment platforms and their security methodology
 
+[![Build Status](https://travis-ci.com/jmbott/demo-payment-server.svg?branch=master)](https://travis-ci.com/jmbott/demo-payment-server)
+
 ## Setup
 
 For full setup follow the `docs/launch_aws_server.md` guide.
