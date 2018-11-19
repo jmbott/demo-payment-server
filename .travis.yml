@@ -19,7 +19,8 @@ before_script:
   - psql -c 'create database demo_payment;' -U postgres
 
 script:
-  - demo_payment/run.sh &
+  - cd demo_payment
+  - run.sh &
   - pytest
 
 notifications:
