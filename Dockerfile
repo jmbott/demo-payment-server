@@ -6,5 +6,5 @@ RUN set -x \
   && useradd -r -d /demo_payment -s /sbin/nologin demo_payment \
   && chown -R demo_payment:demo_payment .
 USER demo_payment
-CMD ["./demo_payment/run.sh"]
+CMD ["(cd demo_payment && ./run.sh)"]
 EXPOSE 8889

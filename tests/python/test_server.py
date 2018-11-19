@@ -10,6 +10,6 @@ def test_alive():
 
 # Index test title
 def test_html_title():
-    response = requests.get("http://127.0.0.1:8088/")
+    response = requests.get("http://127.0.0.1:8080/")
     soup = BeautifulSoup(response.content, "html.parser")
     assert soup.title.text == "Home"
