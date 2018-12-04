@@ -1,0 +1,17 @@
+version: '3'
+services:
+  demo_payment:
+    build:
+      context: ../
+    ports:
+      - "8889:8889"
+    command: ./demo_payment/run.sh --db_host=db
+    volumes:
+      - ../:/demo-payment-server
+    user: root
+    depends_on:
+      - db
+  db:
+    image: postgres:10.6
+    environment:
+      POSTGRES_DB: demo_payment

@@ -38,20 +38,24 @@
 
 ![alt text](assets/security_rules.png "EC2 Security Rules")
 
-12. On AWS Route53 setup subdomain,
+12. Navigate and login to [Duck DNS](http://www.duckdns.org/),
 
-![alt text](assets/route53.png "Route 53")
+![alt text](assets/duckdns.png "Duck DNS")
 
-13. `ssh` into the instance using the `*.pem` file
+13. Add a new subdomain and assign it the IP of our new server.
+
+![alt text](assets/domain_name.png "Duck DNS Domain Name")
+
+14. `ssh` into the instance using the `*.pem` file
 
 ![alt text](assets/access.png "EC2 Access")
 
 ```
-$ chmod 400 demo-payment.pem # on computer with pem
-$ ssh -i "demo-payment.pem" ubuntu@ec2-35-158-239-92.eu-central-1.compute.amazonaws.com
+$ chmod 400 demo-payment-server.pem # on computer with pem
+$ ssh -i "demo-payment-server.pem" ubuntu@demo-payment-server.duckdns.org
 ```
 
-14. Add your ssh key for normal access if you have one.
+15. Add your ssh key for normal access if you have one.
 
 ```
 $ ls -al ~/.ssh
@@ -68,18 +72,19 @@ $ vim ~/.ssh/authorized_keys # on server
  * exit `ctrl-d` and test accessing the server's global ip address
 
 ```
-$ ssh ubuntu@35.158.239.92 # test login
+$ ssh ubuntu@demo-payment-server.duckdns.org # test login
 ```
 
-15. Move to root user and add your key there as well.
+16. Move to root user and add your key there as well.
 
 ```
 $ sudo su # on server
 $ vim ~/.ssh/authorized_keys # add your key
-$ ssh root@35.158.239.92 # test login
+$ # ctrl-d ctrl-d to exit
+$ ssh root@demo-payment-server.duckdns.org # test login
 ```
 
-16. Install docker
+17. Install docker
 
 ```
 # apt-get update
@@ -89,19 +94,19 @@ $ ssh root@35.158.239.92 # test login
 # systemctl enable docker # enable docker
 ```
 
-17. Get the install script, (With newest version number)
+18. Get the install script, (With newest version number)
 
 ```
 # curl -LO https://raw.githubusercontent.com/jmbott/demo_payment_server/0.0.1/prod/install.sh
 ```
 
-18. Update the permissions on the install script
+19. Update the permissions on the install script
 
 ```
 # chmod +x install.sh
 ```
 
-19. Install using the script,
+20. Install using the script,
 
 ```
 # ./install.sh
