@@ -11,6 +11,8 @@ class options():
     def __init__(self, application_debug, demo_payment_website_url,
                  demo_payment_https, demo_payment_port, db_host, db_port,
                  db_database, db_schema, db_user, db_password):
+        """init variables."""
+
         self.application_debug = False
         self.demo_payment_website_url = 'http://localhost:8889'
         self.demo_payment_https = True

@@ -38,7 +38,9 @@ def create_engine():
 
 @contextmanager
 def transaction(session):
-    """Provide a transactional scope around a series of operations.
+    """Provide a transactional scope around a series of operations."""
+
+    """
     Taken from http://docs.sqlalchemy.org/en/latest/orm/session_basics.html
     #when-do-i-construct-a-session-when-do-i-commit-it-and-when-do-i-close-it
     """
