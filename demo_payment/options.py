@@ -10,9 +10,9 @@ parser = argparse.ArgumentParser(description='Process Application Options.')
 parser.add_argument('-d', '--debug', dest='application_debug',
                     action='store_true', help='enter debug mode')
 parser.add_argument('-u', '--url', dest='demo_payment_website_url', nargs=1,
-                    default='http://localhost:8889', help='set website url')
-parser.add_argument('-t', '--host', dest='demo_payment_host', nargs=1,
-                    default='localhost', help='set website host')
+                    default='localhost:8889', help='set website url')
+# parser.add_argument('-t', '--host', dest='demo_payment_host', nargs=1,
+#                     default='localhost', help='set website host')
 # set demo_payment_https default true set false when certbot is setup
 parser.add_argument('-s', '--https', dest='demo_payment_https',
                     action='store_true', help='use https only')

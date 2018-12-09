@@ -1,5 +1,5 @@
 uwsgi:
-  socket: /tmp/uwsgi.sock
-  socket: 127.0.0.1:8889
-  master: 1
-  workers: 3//nc 192.168.11.2:33000'
+  logdate: '%d/%m/%Y-%H:%M:%S'
+  mount: /demo-payment-server=demo_payment.server:app
+  protocol: http
+  socket: localhost:8889
