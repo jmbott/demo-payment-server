@@ -7,5 +7,5 @@ pytest==4.0.0
 beautifulsoup4==4.6.3
 requests==2.20.1
 sqlalchemy==1.2.14
-psycopg2==2.7.6.1
+psycopg2-binary==2.7.6.1
 pyyaml==3.13

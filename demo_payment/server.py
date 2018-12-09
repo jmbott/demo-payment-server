@@ -2,7 +2,6 @@
 
 from flask import Flask, session, redirect, url_for
 from flask import escape, request, render_template
-from demo_payment.options import options
 import os
 
 app = Flask(__name__)

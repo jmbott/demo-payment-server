@@ -46,6 +46,8 @@ For manual edits use, `docker exec -it dev_demo_payment_1 /bin/bash`
 
 ### Native
 
+* To launch postgres locally `pg_ctl -D /usr/local/var/postgres start`
+
 ```
 (venv) $ ./dev/commands.py create_user --kwarg email=<your_email_address>
 Created user with e-mail your_email_address
