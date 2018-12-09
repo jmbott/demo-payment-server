@@ -1,5 +1,0 @@
-uwsgi:
-  logdate: '%d/%m/%Y-%H:%M:%S'
-  mount: /demo-payment-server=demo_payment.server:app
-  protocol: http
-  socket: localhost:8889
