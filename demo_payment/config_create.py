@@ -1,6 +1,8 @@
 import yaml
 from options import options
 
+print(options.demo_payment_website_url)
+
 data = {}
 data['uwsgi'] = {
     'socket': options.demo_payment_website_url,
