@@ -7,7 +7,7 @@
 $ python3 -m venv venv
 $ source venv/bin/activate
 (venv) $ pip install -r requirements.txt
-(venv) $ cd demo_payment && ./run.sh
+(venv) $ ./dev/run.sh
 03/12/2018-22:34:03 - *** Starting uWSGI 2.0.17.1 (64bit) on [Mon Dec  3 22:34:03 2018] ***
 ```
 
@@ -20,8 +20,8 @@ $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 ```
 
-You may need to run `docker-machine start default`, `docker-machine env`, and
-`eval $(docker-machine env)` to start docker.
+You may need to run `docker-machine start default`, `docker-machine env`,
+and/or `eval $(docker-machine env)` to start docker.
 
 * If rebuilding container then,
 
@@ -39,7 +39,6 @@ $ docker-compose -f dev/docker-compose.yml ps
 dev_db_1             docker-entrypoint.sh postgres    Up      5432/tcp
 dev_demo_payment_1   ./demo_payment/run.sh --db ...   Up      0.0.0.0:8889->8889/tcp            
 ```
-
 
 ## Adding an initial user locally
 

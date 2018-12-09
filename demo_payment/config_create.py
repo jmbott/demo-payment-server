@@ -6,7 +6,6 @@ print(options.demo_payment_website_url)
 data = {}
 data['uwsgi'] = {
     'socket': options.demo_payment_website_url,
-    'logdate': '%d/%m/%Y-%H:%M:%S',
     'protocol': 'http',
     'mount': '/demo-payment-server=demo_payment.server:app'
 }
