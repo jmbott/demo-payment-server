@@ -1,42 +1,35 @@
 """Application-level Options."""
+import argparse
 from functools import partial
 import os
 
 path = partial(os.path.join, os.path.dirname(__file__))
 path.__doc__ = 'Full path relative to the directory of this file.'
 
-class options():
-    """options available."""
+parser = argparse.ArgumentParser(description='Process Application Options.')
+parser.add_argument('-d', '--debug', dest='application_debug',
+                    action='store_true', help='enter debug mode')
+parser.add_argument('-u', '--url', dest='demo_payment_website_url', nargs=1,
+                    default='http://localhost:8889', help='set website url')
+parser.add_argument('-t', '--host', dest='demo_payment_host', nargs=1,
+                    default='localhost', help='set website host')
+# set demo_payment_https default true set false when certbot is setup
+parser.add_argument('-s', '--https', dest='demo_payment_https',
+                    action='store_true', help='use https only')
+parser.add_argument('-p', '--port', dest='demo_payment_port', type=int,
+                    nargs=1, default='8889',
+                    help='port for demo payment server')
+parser.add_argument('-b', '--dbhost', dest='db_host', nargs=1,
+                    default='localhost', help='set database host')
+parser.add_argument('-o', '--dbport', dest='db_port', type=int, nargs=1,
+                    default=5432, help='port for postgres database')
+parser.add_argument('-a', '--db', dest='db_database', nargs=1,
+                    default='demo_payment', help='set database name')
+parser.add_argument('-c', '--schema', dest='db_schema', nargs=1,
+                    default='demo_payment', help='set database schema')
+parser.add_argument('-e', '--dbuser', dest='db_user', nargs=1,
+                    default='postgres', help='set database user')
+parser.add_argument('-w', '--dbpass', dest='db_password', nargs=1,
+                    default='password', help='set database password')
 
-    def __init__(self, application_debug, demo_payment_website_url,
-                 demo_payment_https, demo_payment_port, db_host, db_port,
-                 db_database, db_schema, db_user, db_password):
-        """init variables."""
-
-        self.application_debug = False
-        self.demo_payment_website_url = 'http://localhost:8889'
-        self.demo_payment_https = True
-        self.demo_payment_port = 8889
-        self.db_host = 'localhost'
-        self.db_port = 5432
-        self.db_database = 'demo_payment'
-        self.db_schema = 'demo_payment'
-        self.db_user = 'postgres'
-        self.db_password = 'password'
-
-# define(
-#     'application_debug', default=False,
-#     help='Dangerous option that shows debug information for any error.'
-# )
-# define(
-#     'demo_payment_website_url', default='http://localhost:8889',
-#     help='The URL of this instance of the demo payment server.'
-# )
-# define('demo_payment_https', default=True)
-# define('demo_payment_port', default='8889')
-# define('db_host', default='localhost')
-# define('db_port', default=5432)
-# define('db_database', default='demo_payment')
-# define('db_schema', default='demo_payment')
-# define('db_user', default='postgres')
-# define('db_password', default='password')
+options = parser.parse_args()

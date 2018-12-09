@@ -1,5 +1,18 @@
 ## Demo Payment Web Server
 
+**server.py**
+
+Main Flask application file.
+
+**run.sh**
+
+Script to kick off the web application.
+
+**wsgi.py**
+
+[uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/)
+entry point for Flask application.
+
 **options.py**
 
 Application-level Options

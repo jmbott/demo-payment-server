@@ -1,0 +1,5 @@
+uwsgi:
+  socket: /tmp/uwsgi.sock
+  socket: 127.0.0.1:8889
+  master: 1
+  workers: 3//nc 192.168.11.2:33000'

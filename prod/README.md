@@ -1,9 +1,5 @@
 ## Production Configuration and Install Scripts
 
-**run.sh**
-
-Script to kick off the web application.
-
 **nginx.conf**
 
 Configuration file for NGINX web server.
@@ -12,7 +8,7 @@ Configuration file for NGINX web server.
 
 Install script for project.
 
-**docker-compose**
+**docker-compose.yml**
 
 A YAML file that defines how Docker containers should behave in production.
 

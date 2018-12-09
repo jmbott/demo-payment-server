@@ -20,6 +20,15 @@ $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 ```
 
+You may need to run `docker-machine start default`, `docker-machine env`, and
+`eval $(docker-machine env)` to start docker.
+
+* If rebuilding container then,
+
+```
+$ docker-compose -f dev/docker-compose.yml build
+```
+
 * Then start the containers
 
 ```
@@ -34,7 +43,7 @@ dev_demo_payment_1   ./demo_payment/run.sh --db ...   Up      0.0.0.0:8889->8889
 
 ## Adding an initial user locally
 
-Note that the login flow is quicker with a gmail.com e-mail address.
+For manual edits use, `docker exec -it dev_demo_payment_1 /bin/bash`
 
 ### Native
 
@@ -46,6 +55,6 @@ Created user with e-mail your_email_address
 ### Docker
 
 ```
-$ docker exec dev_minigrid_1 dev/commands.py create_user --db_host=db --kwarg email=<your_email_address>
+$ docker exec dev_demo_payment_1 dev/commands.py create_user --db_host=db --kwarg email=<your_email_address>
 Created user with e-mail your_email_address
 ```

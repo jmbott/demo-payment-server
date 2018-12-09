@@ -70,6 +70,7 @@ def json_column(column_name, default=None):
         nullable=False,
         server_default=default)
 
+
 class User(Base):
     """The model for a registered user."""
 

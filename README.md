@@ -8,6 +8,8 @@ Web server exploring different payment platforms and their security methodology
 
 For full setup follow the `docs/launch_aws_server.md` guide.
 
+For local setup see the **local_setup.md** file. 
+
 ## Overview
 
 Web server to demo different payment platforms. Uses the
@@ -21,25 +23,18 @@ Docker containers for [NGINX](https://nginx.org/),
 
 Shows tests for `M-Pesa`, `Stripe`, and `Bitpay`.
 
-Uses email-based password-less authentication service `Portier`.
-
-**server.py**
-
-Main Flask application file.
-
-**wsgi.py**
-
-[uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/)
-entry point for Flask application.
+Uses [flask sessions](http://flask.pocoo.org/docs/1.0/api/#sessions) to handle
+authentication.
 
 **requirements.txt**
 
-Set of Python requirements listed with version numbers.
+Set of Python requirements listed with version numbers for consistent installs.
 
 **Dockerfile**
 
 A text document that contains all the commands a user could call on the command
-line to assemble a Docker image.
+line to assemble a Docker image. In this case for the demo_payment docker
+container.
 
 **.travis.yml**
 
@@ -56,7 +51,11 @@ Web server code base.
 
 **/prod**
 
-Production code install scripts and setup.
+Production code install scripts and setup files.
+
+**/dev**
+
+Development install scripts and setup files.
 
 **/tests**
 

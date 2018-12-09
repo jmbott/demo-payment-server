@@ -5,7 +5,7 @@ services:
       context: ../
     ports:
       - "8889:8889"
-    command: ./demo_payment/run.sh --db_host=db
+    command: ./dev/run.sh --db_host=db
     volumes:
       - ../:/demo-payment-server
     user: root
