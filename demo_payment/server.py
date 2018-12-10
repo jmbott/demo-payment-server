@@ -44,7 +44,7 @@ def add_api_key(key):
             sesh.add(models.Stripe(api_key=key))
         message = f'{key[:6]}... successfully added'
     except IntegrityError as error:
-        message = f'error adding key: {key[:6]}...'
+        message = f'{error}'
     return message
 
 
@@ -107,8 +107,8 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/stripe', methods=['GET', 'POST'])
-def stripe(message=None):
+@app.route('/stripe_demo', methods=['GET', 'POST'])
+def stripe_demo(message=None):
     """Stripe Route."""
     if 'email' in session:
         if request.method == 'POST':
@@ -123,8 +123,8 @@ def stripe(message=None):
                 description='Example charge',
                 source=token,
             )
-            return render_template('stripe.html', message=charge)
-        return render_template('stripe.html', message=None)
+            return render_template('stripe_demo.html', message=charge)
+        return render_template('stripe_demo.html', message=None)
     return redirect(url_for('login'))
 
 
