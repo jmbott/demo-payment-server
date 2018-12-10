@@ -39,5 +39,47 @@
         </tr>
       </tbody>
     </table>
+    <h5>There are also two types of API keys:
+      <a href="https://stripe.com/docs/keys">publishable and secret.</a></h5>
+    <ul>
+      <li>
+        <b>Publishable</b> API keys are meant solely to identify your account with
+        Stripe, they aren’t secret. In other words, they can safely be published
+        in places like your Stripe.js JavaScript code, or in an Android or iPhone
+        app. Publishable keys only have the power to create tokens.
+      </li>
+      <li>
+        <b>Secret</b> API keys should be kept confidential and only stored on your own
+        servers. Your account’s secret API key can perform any API request to
+        Stripe without restriction.
+      </li>
+    </ul>
+    <h5>There are a few simple verification steps that can be performed:
+      <a href="https://stripe.com/docs/disputes/prevention#make-use-of-verification-checks">
+        CVC and AVS.</a>
+    </h5>
+    <ul>
+      <li>
+        <b>Card verification code check (CVC)</b> (also referred to as CVV)
+        is the three- or four-digit number printed directly on the credit card,
+        usually either on the signature strip or the front of the card.
+      </li>
+      <li>
+        <b>Address verification (AVS)</b> is comprised of two checks: one
+        based on the ZIP code and another based on the billing street address.
+      </li>
+    </ul>
+    <form action="your-server-side-code" method="POST">
+      <script
+        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="pk_test_I5VYYpQwzPdpAhJ5ygGxLKOW"
+        data-amount="999"
+        data-name="Demo Payment Server"
+        data-description="Example charge"
+        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+        data-locale="auto"
+        data-zip-code="true">
+      </script>
+    </form>
   </div>
 {% endblock %}

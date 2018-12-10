@@ -35,5 +35,6 @@ def main():
     #     tx_session.add(models.User(email=args.email))
     # print('Created initial user with e-mail', args.email)
 
+
 if __name__ == '__main__':
     main()
