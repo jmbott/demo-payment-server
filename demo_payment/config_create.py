@@ -1,4 +1,5 @@
 """Create uWSGI Config YAML file."""
+
 import yaml
 from options import options
 

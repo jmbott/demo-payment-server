@@ -3,12 +3,8 @@
 import sqlalchemy as sa
 
 from sqlalchemy.dialects import postgresql as pg
-# from sqlalchemy.exc import DataError
 from sqlalchemy.ext.declarative import declarative_base
-# from sqlalchemy.orm import relationship, backref
-# from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import func
-
 from contextlib import contextmanager
 
 from demo_payment.options import options
@@ -60,15 +56,6 @@ def fk(foreign_column):
     """Return a foreign key."""
     return sa.Column(
         pg.UUID, sa.ForeignKey(foreign_column))
-
-
-def json_column(column_name, default=None):
-    """Return a JSONB column that is a dictionary at the top level."""
-    return sa.Column(
-        pg.JSONB,
-        sa.CheckConstraint(f"{column_name} @> '{{}}'"),
-        nullable=False,
-        server_default=default)
 
 
 class User(Base):
