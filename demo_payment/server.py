@@ -16,11 +16,13 @@ app.secret_key = os.urandom(16)  # b'_5#y2L"F4Q8z\n\xec]/'
 user_list = ['millerbott@gmail.com', 'jmb2341@columbia.edu']
 
 def create_session():
+    """Create a Session."""
     engine = models.create_engine()
     sesh = sessionmaker(bind=engine)()
     return sesh
 
 def get_users():
+    """Get all users in DB."""
     if 'sesh' not in locals() and 'sesh' not in globals():
         sesh = create_session()
     user_list = []
@@ -31,6 +33,7 @@ def get_users():
 
 
 def add_user(email):
+    """Add a new User to the DB."""
     try:
         if 'sesh' not in locals() and 'sesh' not in globals():
             sesh = create_session()
