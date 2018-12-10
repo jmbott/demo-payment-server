@@ -3,17 +3,21 @@
 {% block title %}Home{% endblock %}
 {% block content %}
   {% if name is not none %}
-  <p>
-    <strong>Welcome {{ name }}!</strong>
-    <a href="/logout">
-      <button type="button" onclick="return confirm('Log Out?')" class="logout">
-      logout
-      </button>
-    </a>
-  </p>
-  <p>Logged in content (not hidden in source)</p>
+    <p>
+      <strong>Welcome {{ name }}!</strong>
+      <a href="/logout">
+        <button type="button" onclick="return confirm('Log Out?')" class="logout">
+        logout
+        </button>
+      </a>
+    </p>
+    <p>Logged in content (not hidden in source)</p>
+    <ul>
+      <li><a href="/stripe">Try Stripe</a></li>
+      <li><a href="/twilio">Try Twilio</a></li>
+    </ul>
   {% else %}
-  <p class="link">You're not logged in, log in <a href="/login">here</a></p>
+    <p class="link">You're not logged in, log in <a href="/login">here</a></p>
   {% endif %}
   <p>
     This website is meant to explore different website components like Flask,

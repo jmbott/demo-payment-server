@@ -80,6 +80,22 @@ def logout():
     return redirect(url_for('index'))
 
 
+@app.route('/stripe')
+def stripe():
+    """Stripe Route."""
+    if 'email' in session:
+        return render_template('stripe.html', name=escape(session['email']))
+    return redirect(url_for('login'))
+
+
+@app.route('/twilio')
+def twilio():
+    """Twilio Route."""
+    if 'email' in session:
+        return render_template('twilio.html', name=escape(session['email']))
+    return redirect(url_for('login'))
+
+
 @app.errorhandler(404)
 def not_found(error):
     """Error 404."""

@@ -64,6 +64,8 @@ $ psql -c 'create role postgres with login superuser'
 $ psql -c 'create database demo_payment;' -U postgres
 ```
 
+* create user,
+
 ```
 $ python
 >>> from dev import commands

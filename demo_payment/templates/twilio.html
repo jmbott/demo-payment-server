@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Twilio{% endblock %}
+{% block content %}
+  <p><a href="/logout">
+    <button type="button" onclick="return confirm('Log Out?')" class="logout">
+    logout
+    </button>
+  </a></p>
+  <div class="twilio-container">
+    <p>Twilio Stuff</p>
+  </div>
+{% endblock %}

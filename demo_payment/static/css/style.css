@@ -13,6 +13,10 @@ h1 {
   font-weight: 300;
 }
 
+table {
+	background-color: #fff !important;
+}
+
 a:hover {
 	text-decoration: none;
   opacity: 0.6;

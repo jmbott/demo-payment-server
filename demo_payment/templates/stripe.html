@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Stripe{% endblock %}
+{% block content %}
+  <p><a href="/logout">
+    <button type="button" onclick="return confirm('Log Out?')" class="logout">
+    logout
+    </button>
+  </a></p>
+  <div class="stripe-container">
+    <h3>Stripe</h3>
+    <p>Here are some Stripe test card numbers</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Brand</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="card-number">4242<span></span>4242<span></span>4242<span></span>4242</td>
+          <td>Visa</td>
+        </tr>
+        <tr>
+          <td class="card-number">4000<span></span>0566<span></span>5566<span></span>5556</td>
+          <td>Visa (debit)</td>
+        </tr>
+        <tr>
+          <td class="card-number">5555<span></span>5555<span></span>5555<span></span>4444</td>
+          <td>Mastercard</td>
+        </tr>
+        <tr>
+          <td class="card-number">3782<span></span>822463<span></span>10005</td>
+          <td>American Express</td>
+        </tr>
+        <tr>
+          <td class="card-number">6011<span></span>1111<span></span>1111<span></span>1117</td>
+          <td>Discover</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
