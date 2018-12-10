@@ -40,6 +40,10 @@ dev_db_1             docker-entrypoint.sh postgres    Up      5432/tcp
 dev_demo_payment_1   ./demo_payment/run.sh --db ...   Up      0.0.0.0:8889->8889/tcp            
 ```
 
+* You should be able to [access containers](https://github.com/docker/for-win/issues/221#issuecomment-260028907)
+from your container host using the container IP. You can use
+`docker inspect <container ID>` to get your container's IP address.
+
 ## Adding an initial user locally
 
 For manual edits use, `docker exec -it dev_demo_payment_1 /bin/bash`

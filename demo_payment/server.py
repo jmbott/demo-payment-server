@@ -4,7 +4,7 @@ from flask import Flask, session, redirect, url_for
 from flask import escape, request, render_template
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import IntegrityError
-from demo_payment.options import options
+# from demo_payment.options import options
 from demo_payment import models
 import os
 
