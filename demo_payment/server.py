@@ -7,6 +7,7 @@ from sqlalchemy.exc import IntegrityError
 # from demo_payment.options import options
 from demo_payment import models
 import os
+import stripe
 
 app = Flask(__name__)
 
@@ -20,6 +21,32 @@ def create_session():
     engine = models.create_engine()
     sesh = sessionmaker(bind=engine)()
     return sesh
+
+
+def get_api_key():
+    """Get stripe api_key in DB."""
+    if 'sesh' not in locals() and 'sesh' not in globals():
+        sesh = create_session()
+    Str = models.Stripe
+    keys = sesh.query(Str).order_by(Str.key)
+    for key in keys:
+        stripe_key = key.api_key
+    return stripe_key
+
+
+def add_api_key(key):
+    """Add a new Stripe api_key to the DB.
+    See your keys here: https://dashboard.stripe.com/account/apikeys"""
+    try:
+        if 'sesh' not in locals() and 'sesh' not in globals():
+            sesh = create_session()
+        with models.transaction(sesh) as sesh:
+            sesh.add(models.Stripe(api_key=key))
+        message = f'{key[:6]}... successfully added'
+    except IntegrityError as error:
+        message = f'error adding key: {key[:6]}...'
+    return message
+
 
 def get_users():
     """Get all users in DB."""
@@ -80,11 +107,24 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/stripe')
-def stripe():
+@app.route('/stripe', methods=['GET', 'POST'])
+def stripe(message=None):
     """Stripe Route."""
     if 'email' in session:
-        return render_template('stripe.html', name=escape(session['email']))
+        if request.method == 'POST':
+            stripe.api_key = get_api_key()
+            # Token is created using Checkout or Elements!
+            # Get the payment token ID submitted by the form:
+            token = request.form['stripeToken']
+            print(token)
+            charge = stripe.Charge.create(
+                amount=999,
+                currency='usd',
+                description='Example charge',
+                source=token,
+            )
+            return render_template('stripe.html', message=charge)
+        return render_template('stripe.html', message=None)
     return redirect(url_for('login'))
 
 

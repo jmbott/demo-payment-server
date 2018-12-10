@@ -66,3 +66,12 @@ class User(Base):
     email = sa.Column(
         pg.TEXT, sa.CheckConstraint("email ~ '.*@.*'"),
         nullable=False, unique=True)
+
+
+class Stripe(Base):
+    """The model for Stripe Key."""
+
+    __tablename__ = 'key'
+    api_key = sa.Column(
+        pg.BYTEA, sa.CheckConstraint("api_key ~ 'sk_.*'"),
+        nullable=False, primary_key=True)

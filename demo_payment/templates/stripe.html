@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Stripe{% endblock %}
 {% block content %}
+  {% if message is not none %}
+  <p><strong>{{ message }}</strong></p>
+  {% endif %}
   <p><a href="/logout">
     <button type="button" onclick="return confirm('Log Out?')" class="logout">
     logout
@@ -69,7 +72,7 @@
         based on the ZIP code and another based on the billing street address.
       </li>
     </ul>
-    <form action="your-server-side-code" method="POST">
+    <form id="stripeToken" method="POST">
       <script
         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
         data-key="pk_test_I5VYYpQwzPdpAhJ5ygGxLKOW"

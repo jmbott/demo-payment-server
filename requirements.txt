@@ -9,3 +9,4 @@ requests==2.20.1
 sqlalchemy==1.2.14
 psycopg2-binary==2.7.6.1
 pyyaml==3.13
+stripe==2.15.0
