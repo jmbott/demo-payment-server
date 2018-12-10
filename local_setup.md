@@ -44,6 +44,12 @@ dev_demo_payment_1   ./demo_payment/run.sh --db ...   Up      0.0.0.0:8889->8889
 from your container host using the container IP. You can use
 `docker inspect <container ID>` to get your container's IP address.
 
+```
+$ docker inspect dev_demo_payment_1 | grep '"IPAddress":'
+"IPAddress": "",
+    "IPAddress": "172.21.0.3",
+```
+
 ## Adding an initial user locally
 
 For manual edits use, `docker exec -it dev_demo_payment_1 /bin/bash`

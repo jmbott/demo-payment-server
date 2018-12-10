@@ -8,7 +8,6 @@ services:
     command: ./dev/run.sh --db_host=db
     volumes:
       - ../:/demo-payment-server
-    user: root
     depends_on:
       - db
   db:
