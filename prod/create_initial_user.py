@@ -6,16 +6,14 @@ import sys
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
-from demo_payment import server
-
 
 def main():
     """Supply the administrator's e-mail."""
+    from demo_payment import server
     parser = argparse.ArgumentParser()
     parser.add_argument('email')
     args, others = parser.parse_known_args()
     server.add_user(args.email)
-
 
     # args, others = parser.parse_known_args()
     # from demo_payment.options import options
@@ -36,7 +34,6 @@ def main():
     # with models.transaction(session) as tx_session:
     #     tx_session.add(models.User(email=args.email))
     # print('Created initial user with e-mail', args.email)
-
 
 if __name__ == '__main__':
     main()
