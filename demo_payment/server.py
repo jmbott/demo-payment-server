@@ -182,7 +182,7 @@ def twilio_demo(message=None):
 
 
 @app.route('/settings', methods=['GET', 'POST'])
-def settings(message=None):
+def settings(message=None): # noqa
     """Settings Route."""
     if 'email' in session:
         if request.method == 'POST':
