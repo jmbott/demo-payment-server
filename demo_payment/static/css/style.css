@@ -47,6 +47,11 @@ a:hover {
   height: 100%;
 }
 
+.settings-container {
+	padding: 20px;
+	background-color: #d8bfd8 !important;
+}
+
 .return {
   font-weight: 400;
   letter-spacing: -0.04em;
@@ -61,7 +66,7 @@ a:hover {
 }
 
 .link a {
-	color: #fff;
+	color: #d8bfd8;
   text-decoration: none;
 	transition: border-color 0.1s ease-in;
 }

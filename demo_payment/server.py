@@ -4,11 +4,15 @@ from flask import Flask, session, redirect, url_for
 from flask import escape, request, render_template
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import IntegrityError
-# from demo_payment.options import options
+from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy import desc
 from demo_payment import models
 from twilio.rest import Client
+from twilio.base.exceptions import TwilioException
 import os
+import datetime
 import stripe
+from stripe.error import AuthenticationError
 
 app = Flask(__name__)
 
@@ -16,19 +20,22 @@ app = Flask(__name__)
 app.secret_key = os.urandom(16)  # b'_5#y2L"F4Q8z\n\xec]/'
 
 
-def create_session():
+def create_session(ensure=True):
     """Create a Session."""
     engine = models.create_engine()
-    sesh = sessionmaker(bind=engine)()
-    return sesh
+    if ensure:
+        models.Base.metadata.create_all(engine)
+        print(f'Created schema {models.Base.metadata.schema}')
+    return sessionmaker(bind=engine)()
 
 
 def get_api_key():
     """Get stripe api_key in DB."""
     if 'sesh' not in locals() and 'sesh' not in globals():
-        sesh = create_session()
+        sesh = create_session(ensure=False)
     Str = models.Stripe
-    keys = sesh.query(Str).order_by(Str.api_key)
+    keys = sesh.query(Str).order_by(desc(Str.ts))
+    stripe_key = ''
     for key in keys:
         stripe_key = key.api_key
     return stripe_key
@@ -38,11 +45,15 @@ def add_api_key(key):
     """Add a new Stripe api_key to the DB."""
     try:
         if 'sesh' not in locals() and 'sesh' not in globals():
-            sesh = create_session()
+            sesh = create_session(ensure=False)
         with models.transaction(sesh) as sesh:
             # See your keys here: https://dashboard.stripe.com/account/apikeys
             sesh.add(models.Stripe(api_key=key))
-        message = f'{key[:6]}... successfully added'
+            sesh.query(models.Stripe) \
+                .filter(models.Stripe.api_key == key) \
+                .update({"ts": datetime.datetime.now().isoformat()})
+            sesh.commit()
+        message = f'{key[:7]}... successfully added'
     except IntegrityError as error:
         message = f'{error}'
     return message
@@ -51,9 +62,9 @@ def add_api_key(key):
 def get_twilio_info():
     """Get Twilio Info in DB."""
     if 'sesh' not in locals() and 'sesh' not in globals():
-        sesh = create_session()
+        sesh = create_session(ensure=False)
     Twi = models.Twilio
-    info = sesh.query(Twi).order_by(Twi.account_sid)
+    info = sesh.query(Twi).order_by(desc(Twi.ts))
     twilio_info = []
     for inf in info:
         twilio_info.append(inf.account_sid)
@@ -67,23 +78,31 @@ def add_twilio_info(sid, token, dest, orig):
     """Add new Twilio info to the DB."""
     try:
         if 'sesh' not in locals() and 'sesh' not in globals():
-            sesh = create_session()
+            sesh = create_session(ensure=False)
+        data = {
+            'ts': datetime.datetime.now().isoformat(),
+            'account_sid': sid,
+            'auth_token': token,
+            'dest_num': dest,
+            'orig_num': orig}
+        statement = (
+            insert(models.Twilio)
+            .values(**data)
+            .on_conflict_do_update(index_elements=['account_sid'], set_=data))
         with models.transaction(sesh) as sesh:
             # Your Account SID and Auth Token from twilio.com/console
-            sesh.add(models.Twilio(account_sid=sid))
-            sesh.add(models.Twilio(auth_token=token))
-            sesh.add(models.Twilio(dest_num=dest))
-            sesh.add(models.Twilio(orig_num=orig))
-        message = f'{sid[:6]},{token[:6]},{dest},{orig} successfully added'
+            sesh.execute(statement)
+        message = \
+            f'{sid[:6]}..., {token[:6]}..., {dest}, {orig} successfully added'
     except IntegrityError as error:
-        message = f'{error}'
+        message = f'error: {error}'
     return message
 
 
 def get_users():
     """Get all users in DB."""
     if 'sesh' not in locals() and 'sesh' not in globals():
-        sesh = create_session()
+        sesh = create_session(ensure=False)
     user_list = []
     users = sesh.query(models.User).order_by('email')
     for user in users:
@@ -95,7 +114,7 @@ def add_user(email):
     """Add a new User to the DB."""
     try:
         if 'sesh' not in locals() and 'sesh' not in globals():
-            sesh = create_session()
+            sesh = create_session(ensure=False)
         with models.transaction(sesh) as sesh:
             sesh.add(models.User(email=email))
         message = f'{email} successfully added'
@@ -145,16 +164,19 @@ def stripe_demo(message=None):
     """Stripe Route."""
     if 'email' in session:
         if request.method == 'POST':
-            stripe.api_key = get_api_key()
-            # Token is created using Checkout or Elements!
-            # Get the payment token ID submitted by the form:
-            token = request.form['stripeToken']
-            charge = stripe.Charge.create(
-                amount=999,
-                currency='usd',
-                description='Example charge',
-                source=token,
-            )
+            try:
+                stripe.api_key = get_api_key()
+                # Token is created using Checkout or Elements!
+                # Get the payment token ID submitted by the form:
+                token = request.form['stripeToken']
+                charge = stripe.Charge.create(
+                    amount=999,
+                    currency='usd',
+                    description='Example charge',
+                    source=token,
+                )
+            except AuthenticationError as error:
+                charge = f'error: {error}'
             return render_template('stripe_demo.html', message=charge)
         return render_template('stripe_demo.html', message=None)
     return redirect(url_for('login'))
@@ -165,17 +187,22 @@ def twilio_demo(message=None):
     """Twilio Route."""
     if 'email' in session:
         if request.method == 'POST':
-            info = get_twilio_info()
-            account_sid = info[0]
-            auth_token = info[1]
-            client = Client(account_sid, auth_token)
-            print(client)
-            mess = request.form['twilioMessage']
-            print(mess)
-            message_send = client.messages.create(
-                to=info[2],
-                from_=info[3],
-                body=mess)
+            try:
+                info = get_twilio_info()
+                account_sid = info[0]
+                auth_token = info[1]
+                client = Client(account_sid, auth_token)
+                print(client)
+                mess = request.form['twilioMessage']
+                print(mess)
+                message_send = client.messages.create(
+                    to=info[2],
+                    from_=info[3],
+                    body=mess)
+            except IndexError as error:
+                message_send = f'error: twilio info not set'
+            except TwilioException as error:
+                message_send = f'error: invalid twilio details'
             return render_template('twilio_demo.html', message=message_send)
         return render_template('twilio_demo.html', message=None)
     return redirect(url_for('login'))
@@ -193,7 +220,7 @@ def settings(message=None): # noqa
                 key = request.form['addStripeKey']
                 message = add_api_key(key)
             elif request.form['btn'] == 'Add Twilio Info':
-                sid = request.form['addTwilioKey']
+                sid = request.form['addTwilioSID']
                 token = request.form['addTwilioToken']
                 dest = request.form['addTwilioDest']
                 orig = request.form['addTwilioOrig']

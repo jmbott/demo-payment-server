@@ -24,9 +24,11 @@ parser.add_argument('-a', '--db', dest='db_database',
                     default='demo_payment', help='set database name')
 parser.add_argument('-c', '--schema', dest='db_schema', default='demo_payment',
                     help='set database schema')
-parser.add_argument('-e', '--dbuser', dest='db_user', default='postgres',
+parser.add_argument('-r', '--dbuser', dest='db_user', default='postgres',
                     help='set database user')
 parser.add_argument('-w', '--dbpass', dest='db_password', default='password',
                     help='set database password')
+parser.add_argument('-e', '--email', dest='admin_email',
+                    help='set admin email')
 
 options = parser.parse_args()

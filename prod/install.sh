@@ -88,7 +88,7 @@ printf "========================================\n"
 $DOCKER_COMPOSE up -d
 DEMO_PAYMENT_CONTAINER_NAME=$($DOCKER_COMPOSE ps | grep _demo_payment_ | cut -d' ' -f1)
 sleep 1
-docker exec $DEMO_PAYMENT_CONTAINER_NAME ""prod/create_initial_user.py --db-host=db $ADMIN_EMAIL""
+docker exec $DEMO_PAYMENT_CONTAINER_NAME ""prod/create_initial_user.py --db-host=db --email=$ADMIN_EMAIL""
 NGINX_CONTAINER_NAME=$($DOCKER_COMPOSE ps | grep _nginx_ | cut -d' ' -f1)
 
 # Let's Encrypt auto-renew (for now this is a cron job).
@@ -97,4 +97,5 @@ printf " Adding twice-daily cron job to renew   \n"
 printf " SSL certificate.                       \n"
 printf "========================================\n"
 
+printf "Not all stages complete..."
 # Add ...

@@ -58,6 +58,11 @@ def fk(foreign_column):
         pg.UUID, sa.ForeignKey(foreign_column))
 
 
+def ts():
+    """Return timestamp."""
+    return sa.Column(sa.TIMESTAMP)
+
+
 class User(Base):
     """The model for a registered user."""
 
@@ -73,9 +78,10 @@ class Stripe(Base):
 
     __tablename__ = 'key'
     key_id = pk()
+    ts = ts()
     api_key = sa.Column(
         pg.TEXT, sa.CheckConstraint("api_key ~ 'sk_.*'"),
-        nullable=False, unique=True)
+        nullable=False)
 
 
 class Twilio(Base):
@@ -83,6 +89,7 @@ class Twilio(Base):
 
     __tablename__ = 'twilio_info'
     key_id = pk()
+    ts = ts()
     account_sid = sa.Column(
         pg.TEXT, sa.CheckConstraint("account_sid ~ '.*'"),
         nullable=False, unique=True)
@@ -90,8 +97,8 @@ class Twilio(Base):
         pg.TEXT, sa.CheckConstraint("auth_token ~ '.*'"),
         nullable=False, unique=True)
     dest_num = sa.Column(
-        pg.TEXT, sa.CheckConstraint("dest_num ~ '+.*'"),
+        pg.TEXT, sa.CheckConstraint("dest_num ~ '.*'"),
         nullable=False, unique=True)
     orig_num = sa.Column(
-        pg.TEXT, sa.CheckConstraint("orig_num ~ '+.*'"),
+        pg.TEXT, sa.CheckConstraint("orig_num ~ '.*'"),
         nullable=False, unique=True)

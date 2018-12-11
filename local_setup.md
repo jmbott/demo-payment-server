@@ -50,6 +50,12 @@ $ docker inspect dev_demo_payment_1 | grep '"IPAddress":'
     "IPAddress": "172.21.0.3",
 ```
 
+* Access container logs of the form,
+
+```
+docker exec -it dev_demo_payment_1 tail -f /demo-payment-server/log/uwsgi.log
+```
+
 ## Adding an initial user locally
 
 For manual edits use, `docker exec -it dev_demo_payment_1 /bin/bash`
@@ -65,6 +71,12 @@ For manual edits use, `docker exec -it dev_demo_payment_1 /bin/bash`
 ```
 $ psql -c 'create role postgres with login superuser' # only on OSX
 $ psql -c 'create database demo_payment;' -U postgres
+```
+
+* To remove the database (in case of structure change)
+
+```
+$ psql -c 'drop database demo_payment;' -U postgres
 ```
 
 * create user and stripe key,
@@ -105,11 +117,12 @@ demo_payment=# SET search_path TO demo_payment;
 SET
 demo_payment=# \dt
 List of relations
-Schema    | Name | Type  |  Owner   
---------------+------+-------+----------
-demo_payment | key  | table | postgres
-demo_payment | user | table | postgres
-(2 rows)
+Schema    |    Name     | Type  |  Owner
+--------------+-------------+-------+----------
+demo_payment | key         | table | postgres
+demo_payment | twilio_info | table | postgres
+demo_payment | user        | table | postgres
+(3 rows)
 ```
 
 * To explore database contents,

@@ -5,6 +5,7 @@ import os
 import sys
 
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.dialects.postgresql import insert
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
@@ -42,12 +43,17 @@ def create_twilio_info(sid, token, dest, orig):
     """Add new Twilio info to the DB."""
     from demo_payment import models
     session = createdb(ensure=False)
+    data = {
+        'account_sid': sid,
+        'auth_token': token,
+        'dest_num': dest,
+        'orig_num': orig}
+    statement = (
+        insert(models.Twilio)
+        .values(**data)
+        .on_conflict_do_update(index_elements=['account_sid'], set_=data))
     with models.transaction(session) as session:
-        # Your Account SID and Auth Token from twilio.com/console
-        session.add(models.Twilio(account_sid=sid))
-        session.add(models.Twilio(aauth_token=token))
-        session.add(models.Twilio(dest_num=dest))
-        session.add(models.Twilio(orig_num=orig))
+        session.execute(statement)
     print('Added twilio sid ' + sid)
     print('Added twilio token ' + token)
     print('Added twilio dest ' + dest)

@@ -9,26 +9,31 @@
     logout
     </button>
   </a></p>
-  <div class="settings-container">
+  <div class="form-group col-sm-6 settings-container">
     <h3>Settings</h3>
     <h5>Add Users</h5>
     <form class="form-horizontal" method="POST">
-      Add User: <input type="email" name="addUser" />
+      Add User: <input type="email" class="form-control" name="addUser" /><br>
       <input type="submit" name="btn" value="Add User" />
     </form><br>
     <h5>Add Stripe Key</h5>
     <p>See your keys <a href=https://dashboard.stripe.com/account/apikeys>
       here</a></p>
     <form class="form-horizontal" method="POST">
-      Add Stripe api_key: <input type="text" name="addStripeKey" />
+      Add Stripe api_key:
+      <input type="text" class="form-control" name="addStripeKey" /><br>
       <input type="submit" name="btn" value="Add Stripe Info" />
     </form><br>
     <h5>Add Twilio Info</h5>
     <form class="form-horizontal" method="POST">
-      Add Twilio Key: <input type="text" name="addTwilioKey" /><br>
-      Auth Token: <input type="text" name="addTwilioToken" /><br>
-      Destination Phone Number: <input type="text" name="addTwilioDest" /><br>
-      Origin Phone Number: <input type="text" name="addTwilioOrig" /><br>
+      Add Twilio SID:
+      <input type="text" class="form-control" name="addTwilioSID" /><br>
+      Auth Token:
+      <input type="text" class="form-control" name="addTwilioToken" /><br>
+      Destination Phone Number:
+      <input type="text" class="form-control" name="addTwilioDest" /><br>
+      Origin Phone Number:
+      <input type="text" class="form-control" name="addTwilioOrig" /><br>
       <input type="submit" name="btn" value="Add Twilio Info" />
     </form>
   </div>
