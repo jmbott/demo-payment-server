@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Setup{% endblock %}
+{% block title %}Settings{% endblock %}
 {% block content %}
   {% if message is not none %}
   <p><strong>{{ message }}</strong></p>
@@ -9,8 +9,8 @@
     logout
     </button>
   </a></p>
-  <div class="setup-container">
-    <h3>Setup</h3>
+  <div class="settings-container">
+    <h3>Settings</h3>
     <h5>Add Users</h5>
     <form class="form-horizontal" method="POST">
       Add User: <input type="email" name="addUser" />

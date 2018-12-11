@@ -15,6 +15,7 @@ app = Flask(__name__)
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = os.urandom(16)  # b'_5#y2L"F4Q8z\n\xec]/'
 
+
 def create_session():
     """Create a Session."""
     engine = models.create_engine()
@@ -180,9 +181,9 @@ def twilio_demo(message=None):
     return redirect(url_for('login'))
 
 
-@app.route('/setup', methods=['GET', 'POST'])
-def setup(message=None):
-    """Setup Route."""
+@app.route('/settings', methods=['GET', 'POST'])
+def settings(message=None):
+    """Settings Route."""
     if 'email' in session:
         if request.method == 'POST':
             if request.form['btn'] == 'Add User':
@@ -197,8 +198,8 @@ def setup(message=None):
                 dest = request.form['addTwilioDest']
                 orig = request.form['addTwilioOrig']
                 message = add_twilio_info(sid, token, dest, orig)
-            return render_template('setup.html', message=message)
-        return render_template('setup.html', message=None)
+            return render_template('settings.html', message=message)
+        return render_template('settings.html', message=None)
     return redirect(url_for('login'))
 
 
