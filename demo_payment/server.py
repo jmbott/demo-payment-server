@@ -14,8 +14,6 @@ app = Flask(__name__)
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = os.urandom(16)  # b'_5#y2L"F4Q8z\n\xec]/'
 
-user_list = ['millerbott@gmail.com', 'jmb2341@columbia.edu']
-
 def create_session():
     """Create a Session."""
     engine = models.create_engine()
@@ -28,7 +26,7 @@ def get_api_key():
     if 'sesh' not in locals() and 'sesh' not in globals():
         sesh = create_session()
     Str = models.Stripe
-    keys = sesh.query(Str).order_by(Str.key)
+    keys = sesh.query(Str).order_by(Str.api_key)
     for key in keys:
         stripe_key = key.api_key
     return stripe_key
@@ -88,6 +86,7 @@ def login(message=None):
     """Login Route."""
     if request.method == 'POST':
         session['email'] = request.form['email']
+        user_list = get_users()
         if session['email'] in user_list:
             app.logger.info('%s logged in successfully', session['email'])
             return redirect(url_for('index'))

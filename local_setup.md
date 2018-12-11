@@ -56,24 +56,29 @@ For manual edits use, `docker exec -it dev_demo_payment_1 /bin/bash`
 
 ### Native
 
-* To launch postgres locally `pg_ctl -D /usr/local/var/postgres start`
+* To launch postgres locally `pg_ctl -D /usr/local/var/postgres start` on OSX
+  or `pg_ctl -D /var/lib/postgres/data -l logfile start` on arch
+  * Follow [this guide](https://linuxhint.com/install-postgresql-10-arch-linux/)
+    from install.
 * [Create postgres user](https://www.postgresql.org/docs/current/sql-createrole.html),
 
 ```
-$ psql -c 'create role postgres with login superuser'
+$ psql -c 'create role postgres with login superuser' # only on OSX
 $ psql -c 'create database demo_payment;' -U postgres
 ```
 
-* create user,
+* create user and stripe key,
 
 ```
-$ python
+(venv) [user@machine dir]$ python
 >>> from dev import commands
 >>> commands.createdb(True)
 Created schema demo_payment
 <sqlalchemy.orm.session.Session object at 0x105fe5710>
 >>> commands.create_user('test@test')
 Created user with e-mail test@test
+>>> commands.create_stripe_key('sk_test_xxxxxxxxxx')
+Added stripe key sk_test_xxxxxxxxxx
 ```
 
 * To remove the demo_payment schema,
@@ -99,11 +104,12 @@ You are now connected to database "demo_payment" as user "postgres".
 demo_payment=# SET search_path TO demo_payment;
 SET
 demo_payment=# \dt
-           List of relations
-    Schema    | Name | Type  |  Owner
+List of relations
+Schema    | Name | Type  |  Owner   
 --------------+------+-------+----------
- demo_payment | user | table | postgres
-(1 row)
+demo_payment | key  | table | postgres
+demo_payment | user | table | postgres
+(2 rows)
 ```
 
 * To explore database contents,

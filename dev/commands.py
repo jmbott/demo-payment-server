@@ -28,6 +28,16 @@ def create_user(email):
     print('Created user with e-mail ' + email)
 
 
+def create_stripe_key(key):
+    """Add a new Stripe api_key to the DB."""
+    from demo_payment import models
+    session = createdb(ensure=False)
+    with models.transaction(session) as session:
+        # See your keys here: https://dashboard.stripe.com/account/apikeys
+        session.add(models.Stripe(api_key=key))
+    print('Added stripe key ' + key)
+
+
 def killdb():
     """Drop the schema."""
     from demo_payment import models

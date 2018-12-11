@@ -72,6 +72,7 @@ class Stripe(Base):
     """The model for Stripe Key."""
 
     __tablename__ = 'key'
+    key_id = pk()
     api_key = sa.Column(
-        pg.BYTEA, sa.CheckConstraint("api_key ~ 'sk_.*'"),
-        nullable=False, primary_key=True)
+        pg.TEXT, sa.CheckConstraint("api_key ~ 'sk_.*'"),
+        nullable=False, unique=True)
