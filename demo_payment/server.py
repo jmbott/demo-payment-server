@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import IntegrityError
 # from demo_payment.options import options
 from demo_payment import models
+from twilio.rest import Client
 import os
 import stripe
 
@@ -41,6 +42,38 @@ def add_api_key(key):
             # See your keys here: https://dashboard.stripe.com/account/apikeys
             sesh.add(models.Stripe(api_key=key))
         message = f'{key[:6]}... successfully added'
+    except IntegrityError as error:
+        message = f'{error}'
+    return message
+
+
+def get_twilio_info():
+    """Get Twilio Info in DB."""
+    if 'sesh' not in locals() and 'sesh' not in globals():
+        sesh = create_session()
+    Twi = models.Twilio
+    info = sesh.query(Twi).order_by(Twi.account_sid)
+    twilio_info = []
+    for inf in info:
+        twilio_info.append(inf.account_sid)
+        twilio_info.append(inf.auth_token)
+        twilio_info.append(inf.dest_num)
+        twilio_info.append(inf.orig_num)
+    return twilio_info
+
+
+def add_twilio_info(sid, token, dest, orig):
+    """Add new Twilio info to the DB."""
+    try:
+        if 'sesh' not in locals() and 'sesh' not in globals():
+            sesh = create_session()
+        with models.transaction(sesh) as sesh:
+            # Your Account SID and Auth Token from twilio.com/console
+            sesh.add(models.Twilio(account_sid=sid))
+            sesh.add(models.Twilio(auth_token=token))
+            sesh.add(models.Twilio(dest_num=dest))
+            sesh.add(models.Twilio(orig_num=orig))
+        message = f'{sid[:6]},{token[:6]},{dest},{orig} successfully added'
     except IntegrityError as error:
         message = f'{error}'
     return message
@@ -115,7 +148,6 @@ def stripe_demo(message=None):
             # Token is created using Checkout or Elements!
             # Get the payment token ID submitted by the form:
             token = request.form['stripeToken']
-            print(token)
             charge = stripe.Charge.create(
                 amount=999,
                 currency='usd',
@@ -127,11 +159,24 @@ def stripe_demo(message=None):
     return redirect(url_for('login'))
 
 
-@app.route('/twilio')
-def twilio():
+@app.route('/twilio_demo', methods=['GET', 'POST'])
+def twilio_demo(message=None):
     """Twilio Route."""
     if 'email' in session:
-        return render_template('twilio.html', name=escape(session['email']))
+        if request.method == 'POST':
+            info = get_twilio_info()
+            account_sid = info[0]
+            auth_token  = info[1]
+            client = Client(account_sid, auth_token)
+            print(client)
+            mess = request.form['twilioMessage']
+            print(mess)
+            message_send = client.messages.create(
+                to=info[2],
+                from_=info[3],
+                body=mess)
+            return render_template('twilio_demo.html', message=message_send)
+        return render_template('twilio_demo.html', message=None)
     return redirect(url_for('login'))
 
 

@@ -76,3 +76,22 @@ class Stripe(Base):
     api_key = sa.Column(
         pg.TEXT, sa.CheckConstraint("api_key ~ 'sk_.*'"),
         nullable=False, unique=True)
+
+
+class Twilio(Base):
+    """The model for Stripe Key."""
+
+    __tablename__ = 'twilio_info'
+    key_id = pk()
+    account_sid = sa.Column(
+        pg.TEXT, sa.CheckConstraint("account_sid ~ '.*'"),
+        nullable=False, unique=True)
+    auth_token = sa.Column(
+        pg.TEXT, sa.CheckConstraint("auth_token ~ '.*'"),
+        nullable=False, unique=True)
+    dest_num = sa.Column(
+        pg.TEXT, sa.CheckConstraint("dest_num ~ '+.*'"),
+        nullable=False, unique=True)
+    orig_num = sa.Column(
+        pg.TEXT, sa.CheckConstraint("orig_num ~ '+.*'"),
+        nullable=False, unique=True)

@@ -1,12 +1,20 @@
 {% extends "base.html" %}
 {% block title %}Twilio{% endblock %}
 {% block content %}
+  {% if message is not none %}
+  <p><strong>{{ message }}</strong></p>
+  {% endif %}
   <p><a href="/logout">
     <button type="button" onclick="return confirm('Log Out?')" class="logout">
     logout
     </button>
   </a></p>
   <div class="twilio-container">
-    <p>Twilio Stuff</p>
+    <h3>Twilio</h3>
+    <p>Send an SMS with Twilio</p>
+    <form method="POST">
+      Send SMS: <input type="text" name="twilioMessage" />
+      <input type="submit" value="Send" />
+    </form>
   </div>
 {% endblock %}

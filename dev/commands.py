@@ -38,6 +38,22 @@ def create_stripe_key(key):
     print('Added stripe key ' + key)
 
 
+def create_twilio_info(sid, token, dest, orig):
+    """Add new Twilio info to the DB."""
+    from demo_payment import models
+    session = createdb(ensure=False)
+    with models.transaction(session) as session:
+        # Your Account SID and Auth Token from twilio.com/console
+        session.add(models.Twilio(account_sid=sid))
+        session.add(models.Twilio(aauth_token=token))
+        session.add(models.Twilio(dest_num=dest))
+        session.add(models.Twilio(orig_num=orig))
+    print('Added twilio sid ' + sid)
+    print('Added twilio token ' + token)
+    print('Added twilio dest ' + dest)
+    print('Added twilio orig ' + orig)
+
+
 def killdb():
     """Drop the schema."""
     from demo_payment import models
