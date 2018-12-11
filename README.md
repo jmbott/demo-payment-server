@@ -8,11 +8,11 @@ Web server exploring different payment platforms and their security methodology
 
 For full setup follow the `docs/launch_aws_server.md` guide.
 
-For local setup see the **local_setup.md** file. 
+For local setup see the **local_setup.md** file.
 
 ## Overview
 
-Web server to demo different payment platforms. Uses the
+Web server to demo different payment and messaging platforms. Uses the
 [Flask](http://flask.pocoo.org/) microframework for Python,
 [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) to contain the application,
 [Docker](https://www.docker.com/) to containerize the project, and Travis CI
@@ -21,7 +21,8 @@ for continuous integration and testing.
 Docker containers for [NGINX](https://nginx.org/),
 [PostgreSQL](https://www.postgresql.org/), and the Flask Python application.
 
-Shows tests for `M-Pesa`, `Stripe`, and `Bitpay`.
+Currently shows tests for `Stripe` and `Twilio`. Plans to add additional tests
+for `M-Pesa` and `Bitpay`.
 
 Uses [flask sessions](http://flask.pocoo.org/docs/1.0/api/#sessions) to handle
 authentication.

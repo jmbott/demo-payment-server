@@ -4,10 +4,6 @@
 
 Main Flask application file.
 
-**run.sh**
-
-Script to kick off the web application.
-
 **wsgi.py**
 
 [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/)
@@ -28,6 +24,10 @@ Handlers for URL Endpoints
 **errors.py**
 
 Application Errors
+
+**config_create**
+
+Creates uWSGI YAML config file based on options in options file
 
 **/static**
 

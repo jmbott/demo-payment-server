@@ -166,7 +166,7 @@ def twilio_demo(message=None):
         if request.method == 'POST':
             info = get_twilio_info()
             account_sid = info[0]
-            auth_token  = info[1]
+            auth_token = info[1]
             client = Client(account_sid, auth_token)
             print(client)
             mess = request.form['twilioMessage']
@@ -177,6 +177,28 @@ def twilio_demo(message=None):
                 body=mess)
             return render_template('twilio_demo.html', message=message_send)
         return render_template('twilio_demo.html', message=None)
+    return redirect(url_for('login'))
+
+
+@app.route('/setup', methods=['GET', 'POST'])
+def setup(message=None):
+    """Setup Route."""
+    if 'email' in session:
+        if request.method == 'POST':
+            if request.form['btn'] == 'Add User':
+                email = request.form['addUser']
+                message = add_user(email)
+            elif request.form['btn'] == 'Add Stripe Info':
+                key = request.form['addStripeKey']
+                message = add_api_key(key)
+            elif request.form['btn'] == 'Add Twilio Info':
+                sid = request.form['addTwilioKey']
+                token = request.form['addTwilioToken']
+                dest = request.form['addTwilioDest']
+                orig = request.form['addTwilioOrig']
+                message = add_twilio_info(sid, token, dest, orig)
+            return render_template('setup.html', message=message)
+        return render_template('setup.html', message=None)
     return redirect(url_for('login'))
 
 

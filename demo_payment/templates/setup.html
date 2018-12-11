@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Setup{% endblock %}
+{% block content %}
+  {% if message is not none %}
+  <p><strong>{{ message }}</strong></p>
+  {% endif %}
+  <p><a href="/logout">
+    <button type="button" onclick="return confirm('Log Out?')" class="logout">
+    logout
+    </button>
+  </a></p>
+  <div class="setup-container">
+    <h3>Setup</h3>
+    <h5>Add Users</h5>
+    <form class="form-horizontal" method="POST">
+      Add User: <input type="email" name="addUser" />
+      <input type="submit" name="btn" value="Add User" />
+    </form><br>
+    <h5>Add Stripe Key</h5>
+    <p>See your keys <a href=https://dashboard.stripe.com/account/apikeys>
+      here</a></p>
+    <form class="form-horizontal" method="POST">
+      Add Stripe api_key: <input type="text" name="addStripeKey" />
+      <input type="submit" name="btn" value="Add Stripe Info" />
+    </form><br>
+    <h5>Add Twilio Info</h5>
+    <form class="form-horizontal" method="POST">
+      Add Twilio Key: <input type="text" name="addTwilioKey" /><br>
+      Auth Token: <input type="text" name="addTwilioToken" /><br>
+      Destination Phone Number: <input type="text" name="addTwilioDest" /><br>
+      Origin Phone Number: <input type="text" name="addTwilioOrig" /><br>
+      <input type="submit" name="btn" value="Add Twilio Info" />
+    </form>
+  </div>
+{% endblock %}

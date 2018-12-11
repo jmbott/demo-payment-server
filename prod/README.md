@@ -15,3 +15,7 @@ A YAML file that defines how Docker containers should behave in production.
 **create_initial_user**
 
 Script to create the first website user.
+
+**run.sh**
+
+Script to kick off the web application.
