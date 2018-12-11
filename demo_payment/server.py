@@ -35,12 +35,12 @@ def get_api_key():
 
 
 def add_api_key(key):
-    """Add a new Stripe api_key to the DB.
-    See your keys here: https://dashboard.stripe.com/account/apikeys"""
+    """Add a new Stripe api_key to the DB."""
     try:
         if 'sesh' not in locals() and 'sesh' not in globals():
             sesh = create_session()
         with models.transaction(sesh) as sesh:
+            # See your keys here: https://dashboard.stripe.com/account/apikeys
             sesh.add(models.Stripe(api_key=key))
         message = f'{key[:6]}... successfully added'
     except IntegrityError as error:
