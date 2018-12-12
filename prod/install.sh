@@ -63,8 +63,8 @@ DOMAIN_ARGS=$(echo $DOMAINS | sed -r s/\([^\ ]+\)/-d\ \\1/g)
 printf "========================================\n"
 printf " Generating configuration               \n"
 printf "========================================\n"
-$CURL -L https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.2/prod/docker-compose.yml > docker-compose.yml
-$CURL -L https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.2/prod/nginx.conf > nginx.conf
+$CURL -L https://raw.githubusercontent.com/jmb2341/demo-payment-server/0.0.2/prod/docker-compose.yml > docker-compose.yml
+$CURL -L https://raw.githubusercontent.com/jmb2341/demo-payment-server/0.0.2/prod/nginx.conf > nginx.conf
 
 # Add ...
 #sed -i s/www.example.com/$LETSENCRYPT_DIR/g docker-compose.yml
