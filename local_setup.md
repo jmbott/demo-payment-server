@@ -53,7 +53,7 @@ $ docker inspect dev_demo_payment_1 | grep '"IPAddress":'
 * Access container logs of the form,
 
 ```
-docker exec -it dev_demo_payment_1 tail -f /demo-payment-server/log/uwsgi.log
+docker exec -it -u root dev_demo_payment_1 tail -f /demo-payment-server/logs/uwsgi.log
 ```
 
 ## Adding an initial user locally
@@ -156,6 +156,8 @@ demo_payment=# SELECT * FROM demo_payment.user;
 ### Docker
 
 ```
-$ docker exec dev_demo_payment_1 dev/commands.py create_user --db_host=db --kwarg email=<your_email_address>
-Created user with e-mail your_email_address
+$ docker exec -it dev_demo_payment_1 chmod +x /demo-payment-server/prod/create_initial_user.py
+$ docker exec -it dev_demo_payment_1 /demo-payment-server/prod/create_initial_user.py --dbhost dev_db_1 --email example@example.com
+Created schema demo_payment
+Created initial user with e-mail example@example.com
 ```

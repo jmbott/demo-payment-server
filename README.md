@@ -1,6 +1,7 @@
 # demo-payment-server
 
-Web server exploring different payment platforms and their security methodology
+Web server exploring different payment and messaging platforms and their
+security methodology
 
 [![Build Status](https://travis-ci.com/jmbott/demo-payment-server.svg?branch=master)](https://travis-ci.com/jmbott/demo-payment-server)
 
