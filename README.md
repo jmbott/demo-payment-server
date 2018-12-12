@@ -5,7 +5,7 @@ security methodology
 
 [![Build Status](https://travis-ci.com/jmbott/demo-payment-server.svg?branch=master)](https://travis-ci.com/jmbott/demo-payment-server)
 
-Demo Server: [http://demo-payment-server.duckdns.org](http://demo-payment-server.duckdns.org)
+Demo Server: [https://demo-payment-server.duckdns.org](https://demo-payment-server.duckdns.org)
 
 ## Setup
 

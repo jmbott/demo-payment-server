@@ -97,7 +97,7 @@ $ ssh root@demo-payment-server.duckdns.org # test login
 18. Get the install script, (With newest version number)
 
 ```
-# curl -LO https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.5/prod/install.sh
+# curl -LO https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.6/prod/install.sh
 ```
 
 19. Update the permissions on the install script

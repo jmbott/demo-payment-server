@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Demo Payment Server installer for version 0.0.5
+# Demo Payment Server installer for version 0.0.6
 set -e
 
 # Do you have docker installed?
@@ -108,8 +108,8 @@ $SUDO openssl dhparam -out /etc/letsencrypt/live/$LETSENCRYPT_DIR/dhparam.pem 20
 printf "========================================\n"
 printf " Generating configuration               \n"
 printf "========================================\n"
-$CURL -L https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.5/prod/docker-compose.yml > docker-compose.yml
-$CURL -L https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.5/prod/nginx.conf > nginx.conf
+$CURL -L https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.6/prod/docker-compose.yml > docker-compose.yml
+$CURL -L https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.6/prod/nginx.conf > nginx.conf
 
 sed -i s/www.example.com/$LETSENCRYPT_DIR/g docker-compose.yml
 sed -i s/www.example.com/$LETSENCRYPT_DIR/g nginx.conf
@@ -132,7 +132,7 @@ printf "========================================\n"
 $DOCKER_COMPOSE up -d
 DEMO_PAYMENT_CONTAINER_NAME=$($DOCKER_COMPOSE ps | grep _demo_payment_ | cut -d' ' -f1)
 sleep 1
-docker exec $DEMO_PAYMENT_CONTAINER_NAME ""prod/create_initial_user.py --dbhost=root_db_1 --email=$ADMIN_EMAIL""
+docker exec $DEMO_PAYMENT_CONTAINER_NAME ""prod/create_initial_user.py --dbhost root_db_1 --email $ADMIN_EMAIL""
 NGINX_CONTAINER_NAME=$($DOCKER_COMPOSE ps | grep _nginx_ | cut -d' ' -f1)
 
 # Let's Encrypt auto-renew (for now this is a cron job).

@@ -1,7 +1,7 @@
 version: '3'
 services:
   demo_payment:
-    image: jmb2341/demo-payment-server:0.0.5
+    image: jmb2341/demo-payment-server:0.0.6
     command: ./prod/run.sh --dbhost=root_db_1 --url=https://www.example.com
     depends_on:
       - db
