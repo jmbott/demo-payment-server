@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Demo Payment Server installer for version 0.0.6
+# Demo Payment Server installer for version 0.0.7
 set -e
 
 # Do you have docker installed?
@@ -108,8 +108,8 @@ $SUDO openssl dhparam -out /etc/letsencrypt/live/$LETSENCRYPT_DIR/dhparam.pem 20
 printf "========================================\n"
 printf " Generating configuration               \n"
 printf "========================================\n"
-$CURL -L https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.6/prod/docker-compose.yml > docker-compose.yml
-$CURL -L https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.6/prod/nginx.conf > nginx.conf
+$CURL -L https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.7/prod/docker-compose.yml > docker-compose.yml
+$CURL -L https://raw.githubusercontent.com/jmbott/demo-payment-server/0.0.7/prod/nginx.conf > nginx.conf
 
 sed -i s/www.example.com/$LETSENCRYPT_DIR/g docker-compose.yml
 sed -i s/www.example.com/$LETSENCRYPT_DIR/g nginx.conf

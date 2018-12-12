@@ -11,7 +11,17 @@
   </a></p>
   <div class="stripe-container">
     <h3>Stripe</h3>
-    <p>Here are some Stripe test card numbers</p>
+    <p>
+      Stripe is split up into two processes on the web server, client and then
+      server side. Client side JavaScript and the server side is dependent on
+      what software stack is implemented. For this site the server side is
+      written in Python.
+    </p>
+    <p>
+      First displayed is an example and then further description. So here are
+      some Stripe test card numbers that can be used in test mode but not live
+      mode. Live mode is activated in the Stripe account console.
+    </p>
     <table class="table">
       <thead>
         <tr>
@@ -42,7 +52,36 @@
         </tr>
       </tbody>
     </table>
-    <h5>There are also two types of API keys:
+    <p>
+      You can use the button below to activate a Stripe modal or dialog popup
+      box. Any email can be used as long as it follows the email syntax. Any
+      zip code and check code can be used. The month and year are semantically
+      restricted; you can't use an unreasonable year or a month higher than 12.
+    </p>
+    <p>
+      <b>For this to work your functioning Stripe secret key must be in the
+      database.</b>
+    </p>
+    <form id="stripeToken" method="POST">
+      <script
+        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="pk_test_I5VYYpQwzPdpAhJ5ygGxLKOW"
+        data-amount="999"
+        data-name="Demo Payment Server"
+        data-description="Example charge"
+        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+        data-locale="auto"
+        data-zip-code="true">
+      </script>
+    </form>
+    <br>
+    <p>
+      The modal is configurable. Currently the publishable API key is stored in
+      front end JavaScript and view-able in source. This could be further hidden
+      in the backend database but is not usable without its matching secret
+      API key. Below is a description from the docs,
+    </p>
+    <h5>Two types of API keys:
       <a href="https://stripe.com/docs/keys">publishable and secret.</a></h5>
     <ul>
       <li>
@@ -57,7 +96,7 @@
         Stripe without restriction.
       </li>
     </ul>
-    <h5>There are a few simple verification steps that can be performed:
+    <h5>A few simple verification steps that can be performed (from the docs):
       <a href="https://stripe.com/docs/disputes/prevention#make-use-of-verification-checks">
         CVC and AVS.</a>
     </h5>
@@ -72,17 +111,16 @@
         based on the ZIP code and another based on the billing street address.
       </li>
     </ul>
-    <form id="stripeToken" method="POST">
-      <script
-        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-        data-key="pk_test_I5VYYpQwzPdpAhJ5ygGxLKOW"
-        data-amount="999"
-        data-name="Demo Payment Server"
-        data-description="Example charge"
-        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-        data-locale="auto"
-        data-zip-code="true">
-      </script>
-    </form>
+    <p>
+      The frontend side creates a token from the provided information that is
+      passed to the backend which creates a charge. It is possible to display
+      a different amount to be charged than is actually charged. This is a
+      reality of the structure.
+    </p>
+    <p>
+      Output messages are displayed at the top of this page, good or bad.
+      Stripe security is added to existing security structures of credit card
+      companies to prevent fraudulent activity.
+    </p>
   </div>
 {% endblock %}

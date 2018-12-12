@@ -48,7 +48,8 @@ a:hover {
 }
 
 .settings-container {
-	padding: 20px;
+	padding: 15px;
+	margin: 10px;
 	background-color: #d8bfd8 !important;
 }
 
@@ -66,7 +67,7 @@ a:hover {
 }
 
 .link a {
-	color: #d8bfd8;
+	color: #fff;
   text-decoration: none;
 	transition: border-color 0.1s ease-in;
 }

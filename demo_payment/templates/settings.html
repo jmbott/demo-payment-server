@@ -9,7 +9,9 @@
     logout
     </button>
   </a></p>
-  <div class="form-group col-sm-6 settings-container">
+  <div class="container">
+  <div class="row">
+  <div class="form-group col-sm-5 settings-container">
     <h3>Settings</h3>
     <h5>Add Users</h5>
     <form class="form-horizontal" method="POST">
@@ -29,12 +31,45 @@
       Add Twilio SID:
       <input type="text" class="form-control" name="addTwilioSID" /><br>
       Auth Token:
-      <input type="text" class="form-control" name="addTwilioToken" /><br>
+      <input type="password" class="form-control" name="addTwilioToken" /><br>
       Destination Phone Number:
       <input type="text" class="form-control" name="addTwilioDest" /><br>
       Origin Phone Number:
       <input type="text" class="form-control" name="addTwilioOrig" /><br>
       <input type="submit" name="btn" value="Add Twilio Info" />
     </form>
+  </div>
+  <div class="col-sm-5 settings-container">
+    <p>
+      The forms to the left are pretty unsecure. They will accept almost any
+      input. One security feature that is included is based on syntax. Forms
+      are labeled by type, displayed examples are <i>text</i>, <i>email</i>,
+      and <i>password</i>. The <i>text</i> type being the least secure, it will
+      accept any plaintext. The <i>password</i> type is the same but obscured
+      while typing with asterisks to prevent the onlooker from directly copying.
+      The <i>email</i> type requires a specific syntax or regex, specifically
+      some characters followed by an @ sign and more characters.
+    </p>
+    <p>
+      The next level of security is in what the database will accept. This is
+      another set form of syntactic security. It is defined in the
+      <a href="https://github.com/jmbott/demo-payment-server/blob/master/demo_payment/models.py">
+        models.py</a> file. Using
+      <a href="https://docs.sqlalchemy.org/en/latest/core/constraints.html#check-constraint">
+        sqlalchemy's CheckConstraint</a> the regex of the input can be verified
+      before it is added to the database. These inputs are left pretty open but
+      there is a secondary email format check and a check on the format of the
+      Stripe key format. The Stripe key must begin with <i>sk_</i>. Additional
+      protections can be added, length, additional character restrictions, and
+      character mandates.
+    </p>
+    <p>
+      Other layers of security are featured on other pages; the https certificate,
+      the login requirement, and the session cookie. You can also see the
+      404 protection of incorrect path or dead links. See this
+      <a href="/invalid">here</a> for an invalid link.
+    </p>
+  </div>
+  </div>
   </div>
 {% endblock %}

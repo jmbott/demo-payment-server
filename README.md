@@ -18,8 +18,9 @@ For local setup see the **local_setup.md** file.
 Web server to demo different payment and messaging platforms. Uses the
 [Flask](http://flask.pocoo.org/) microframework for Python,
 [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) to contain the application,
-[Docker](https://www.docker.com/) to containerize the project, and Travis CI
-for continuous integration and testing.
+[Docker](https://www.docker.com/) to containerize the project,
+[Let's Encrypt](https://letsencrypt.org/) and [certbot](https://certbot.eff.org/about/) 
+for free ssl certificates, and Travis CI for continuous integration and testing.
 
 Docker containers for [NGINX](https://nginx.org/),
 [PostgreSQL](https://www.postgresql.org/), and the Flask Python application.

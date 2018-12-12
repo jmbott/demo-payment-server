@@ -16,5 +16,18 @@
       Send SMS: <input type="text" name="twilioMessage" />
       <input type="submit" value="Send" />
     </form>
+    <br>
+    <p>
+      Twilio is secured in a very similar way to Stripe. It uses an account ID
+      and a secret key to identify you and verify your action. All values are
+      currently stored in the database. In addition you must know the origin
+      phone number(s) setup on the indicated account. For test mode you must
+      also verify each destination phone number.
+    </p>
+    <p>
+      See the settings page to add or augment keys and recipients. However since
+      the test account is only setup for the defined values changing them will
+      only lead to a failed attempt.
+    </p>
   </div>
 {% endblock %}

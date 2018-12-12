@@ -11,7 +11,10 @@
         </button>
       </a>
     </p>
-    <p>Logged in content (not hidden in source)</p>
+    <p>
+      Logged in content here. Not hidden in publically available source but
+      hidden from browser <i>"view page source"</i> and <i>"inspect"</i> tools.
+    </p>
     <ul>
       <li><a href="/stripe_demo">Try Stripe</a></li>
       <li><a href="/twilio_demo">Try Twilio</a></li>
@@ -29,5 +32,45 @@
     This website also explores payment and messaging interfaces like Stripe
     and Twilio. How are these services secured and what are the available
     tests?
+  </p>
+  <p>
+    This page is protected by an
+    <a href="https://support.google.com/chrome/answer/95617?visit_id=636802393518702026-3948479196&p=ui_security_indicator&rd=1">
+      SSL Server Certificate</a>, provided by Let's Encrypt. That means that
+    communications with this website are protected from attackers. Your ISP
+    will be able to tell that you have visited <i>https://demo-payment-server.duckdns.org/</i>
+    but not which pages you have visited beyond the homepage
+    <a href=https://blog.mozilla.org/internetcitizen/2017/04/21/https-protect/>
+    <sup>[1]</sup></a>. Any forms that are submitted, traffic will be encrypted.
+    This does not however protect from a malicious provider. It does not protect
+    from this site monitoring your session traffic, your IP address (Location),
+    your movements on the page, your computer CPU, GPU stats, and operating
+    system, the social media accounts you are logged into, and more. Explore
+    some of these vulnerabilities <a href="http://webkay.robinlinus.com/">
+      here</a>. You can see information about this site's SSL cert by clicking
+    on the padlock icon in the address bar. This exists all modern reputable
+    browsers.
+  </p>
+  <p>
+    This webapp is protected by a login. This implementation is simple, provided
+    by Flask sessions. The cookie that maintains this session is a random string
+    of bytes in specified length. In this case 16 bytes long produced by the
+    python os <a href="https://docs.python.org/3.7/library/os.html#os.urandom">
+      urandom</a> tool. The structure of redirection is such that if you are not
+    logged in and attempt to go to a normally accessible page like
+    <a href="">
+      this</a>, you will be asked to login. Logged in or not if you navigate to
+    an invalid page the 404 protection of incorrect path or dead links will
+    catch you. See this by navigating to /invalid <a href="/invalid">here</a>.
+  </p>
+  <p>
+    In addition to these protections EC2 has security groups setup to prevent
+    unauthorized access or access on unexpected ports and with unexpected
+    protocols. For example by default AWS blocks the ICMP protocol so a normal
+    ping will not work. Test this in the terminal with
+    <i>ping demo-payment-server.duckdns.org</i>. The webserver NGINX will also
+    block unexpected traffic or redirect http traffic to https for higher
+    security sessions. This only works in production, certs are not used
+    locally.
   </p>
 {% endblock %}
