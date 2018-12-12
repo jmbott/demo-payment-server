@@ -81,7 +81,7 @@ class Stripe(Base):
     ts = ts()
     api_key = sa.Column(
         pg.TEXT, sa.CheckConstraint("api_key ~ 'sk_.*'"),
-        nullable=False)
+        nullable=False, unique=True)
 
 
 class Twilio(Base):

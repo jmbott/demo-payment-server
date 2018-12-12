@@ -34,7 +34,7 @@ def get_api_key():
     if 'sesh' not in locals() and 'sesh' not in globals():
         sesh = create_session(ensure=False)
     Str = models.Stripe
-    keys = sesh.query(Str).order_by(desc(Str.ts))
+    keys = sesh.query(Str).order_by(Str.ts)
     stripe_key = ''
     for key in keys:
         stripe_key = key.api_key
@@ -46,13 +46,16 @@ def add_api_key(key):
     try:
         if 'sesh' not in locals() and 'sesh' not in globals():
             sesh = create_session(ensure=False)
+        data = {
+            'ts': datetime.datetime.now().isoformat(),
+            'api_key': key}
+        statement = (
+            insert(models.Stripe)
+            .values(**data)
+            .on_conflict_do_update(index_elements=['api_key'], set_=data))
         with models.transaction(sesh) as sesh:
             # See your keys here: https://dashboard.stripe.com/account/apikeys
-            sesh.add(models.Stripe(api_key=key))
-            sesh.query(models.Stripe) \
-                .filter(models.Stripe.api_key == key) \
-                .update({"ts": datetime.datetime.now().isoformat()})
-            sesh.commit()
+            sesh.execute(statement)
         message = f'{key[:7]}... successfully added'
     except IntegrityError as error:
         message = f'{error}'
@@ -199,9 +202,9 @@ def twilio_demo(message=None):
                     to=info[2],
                     from_=info[3],
                     body=mess)
-            except IndexError as error:
+            except IndexError:
                 message_send = f'error: twilio info not set'
-            except TwilioException as error:
+            except TwilioException:
                 message_send = f'error: invalid twilio details'
             return render_template('twilio_demo.html', message=message_send)
         return render_template('twilio_demo.html', message=None)

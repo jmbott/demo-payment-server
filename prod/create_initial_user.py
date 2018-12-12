@@ -3,7 +3,7 @@
 import os
 import sys
 from sqlalchemy import func
-from sqlalchemy.exc import OperationalError, InternalError
+from sqlalchemy.exc import OperationalError
 from time import sleep
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
