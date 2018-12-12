@@ -5,6 +5,8 @@ security methodology
 
 [![Build Status](https://travis-ci.com/jmbott/demo-payment-server.svg?branch=master)](https://travis-ci.com/jmbott/demo-payment-server)
 
+Demo Server: [http://demo-payment-server.duckdns.org](http://demo-payment-server.duckdns.org)
+
 ## Setup
 
 For full setup follow the `docs/launch_aws_server.md` guide.
